@@ -90,38 +90,30 @@ public class MyCollectionExample {
 	System.out.println("people length : " + people.length); 	
 
 	//wijzig steeds van 1 record (de laatste, de middelste en de eerste)  de naam
-	String [] newPeople = new String[1000000];
-	for(int i = 0; i < 1000000; i++) {
-		String newPerson = people[i].replace('J', 'T');
-		String newPerson1 = newPerson.replace('J', 'T');
-		newPeople[i] = newPerson;
-	}
+	int first = 0;
+	int last = people.length - 1;
+	int middle = (first + last)/2;
 	
-	System.out.println("name : " + people[40]); 	
-	System.out.println("new name : " + newPeople[40]); 
-
+	people[first] = "Timothy";
+	people[middle] = "Shao Kahn";
+	people[last] = "Lui Kang";
 	
-	
-	//zoek naar dit record en laat zien hoe lang dit duurt.
-
-
-	//--------------------------------------------------------------------------
-	//Tweede Versie van assignment 1
-	//vul een array met 1 miljoen records (allemaal zelfde naam)
-	ArrayList <Person> arrayList = new ArrayList<Person>();
-	for(int i = 0; i < 1000000; i++) {
-		arrayList.add(new Person("Enverny", "Iengibe", "gigilaan 9", 23));
-	}
-	
-	System.out.println("rray Length: " + arrayList.size());
-	
-	//wijzig steeds van 1 record (de laatste, de middelste en de eerste)  de naam
-	
-	
+	System.out.println("first name : " + people[first]); 	
+	System.out.println("last name : " + people[last]); 	
+	System.out.println("middle name : " + people[middle]); 	
 	
 	
 	//zoek naar dit record en laat zien hoe lang dit duurt.
-
+	long t_0 = System.currentTimeMillis();
+	for(int i = 0; i < people.length; i++) {
+		if(people[i].equals("Lui Kang")) {
+			System.out.println("Found The Name " + people[i]);
+		}
+	}
+	long t_1 = System.currentTimeMillis();
+	long duration_1 = t_1-t_0;
+	System.err.println(" it took " + duration_1 + "  ms");
+	System.out.println();
 
 	//-------------------------------------------------------------------------------------------
 	
@@ -129,9 +121,9 @@ public class MyCollectionExample {
 	
 	//vul een hashmap met 1 miljoen records, gebruik elke keer een unieke id, de naam mag steeds hetzelfde
 	//zijn of mag je veranderen als je dat voor elkaar krijgt
-	HashMap<Integer, Person> personMap = new HashMap<Integer, Person>();
+	HashMap<Integer, String> personMap = new HashMap<Integer, String>();
 		for(int id = 1; id <= 1000000; id++) {
-		personMap.put(id, new Person("Jason", "Kidd", "paramaribostraat 9", 20));
+		personMap.put(id, "Lindsey");
 	}
 
 	System.out.println("Map Length: " + personMap.size());
@@ -140,20 +132,21 @@ public class MyCollectionExample {
 	
 	//meet hoe lang het duurt om een record op te vragen
 	long t0 = System.currentTimeMillis();
-	Person person = personMap.get(45);
+	String person = personMap.get(45);
 	System.out.println(person);
 	long t1 = System.currentTimeMillis();
 	long duration = t1-t0;
-	System.err.println(" it took " + duration + "  ms");
+	System.err.println(" it took " + duration + "  ms in een get manier");
+	System.out.println();
 	
 	
 	//maak 1 record met een andere naam,
-	personMap.put(1000001, new Person("Martin", "Luther", "martinlutherkingjrstraat 23", 40));
+	personMap.put(1000001, "Harry");
 	
 	
 	//meet ook hoe lang het duurt om dit record via zijn key op te vragen...
 	long t2 = System.currentTimeMillis();
-	Person person1 = personMap.get(1000001);
+	String person1 = personMap.get(1000001);
 	System.out.println(person1);
 	long t3 = System.currentTimeMillis();
 	long duration1 = t3-t2;
