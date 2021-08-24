@@ -52,6 +52,14 @@ public class AtleetManager {
 		
 	}
 	
+	public static void search(int month) {
+		for(int i = 0; i < atletenList.size(); i++) {
+			if(atletenList.get(i).getGeboorteDatum().getMonthValue() == month) {
+				System.out.println("Name: "+atletenList.get(i).getVoorNaam()+" "+atletenList.get(i).getAchterNaam()+ " Birthday: "+atletenList.get(i).getGeboorteDatum());
+			} 
+		}
+	}
+	
 	public static void main(String arg[]) {
 		
 	Atleet atleet1 = new Atleet("Jair", "Tjon en Fa", LocalDate.of(1994, 4, 1), Sport.BAANWIELRENNEN);
@@ -88,24 +96,27 @@ public class AtleetManager {
 	System.out.println();
 	//Het volgende is in een search mogelijk
 	//--------------------------------------------------------------------
-//	 // 2) Zoek naar alle individuele sporters
-//	atletenServices.individueleSpelers(atletenList);
-//	
-//	// 3) Druk af hoeveel teamsporters er in de lijst zitten
-//	System.out.println();
-//	atletenServices.totalTeamSportsman(atletenList);
+	 // 2) Zoek naar alle individuele sporters
+	atletenServices.individueleSpelers(atletenList);
+	
+	// 3) Druk af hoeveel teamsporters er in de lijst zitten
+	System.out.println();
+	atletenServices.totalTeamSportsman(atletenList);
 	
 	//EASY MANIER VAN DEZE ZOEKEN: uncomment de volgende line en kiez 1 of 2
-	searchIndividualOrTeam(2);
+//	searchIndividualOrTeam(2);
 	//--------------------------------------------------------------------
 	//--------------------------------------------------------------------
 
+	System.out.println();
 	// 4) Druk af hoeveel sporters er zijn die jarig zijn in Maart
-	System.out.println();
 	atletenServices.sportmenBornInMarch(atletenList);
+	// Het volgende line houdt in het zoeken met een vrijwillige maand
+	//uncomment for use
+	//search(1);
 	
-	 // 5) Druk af hoeveel sporters er zijn die geboren zijn in 2000-2002
 	System.out.println();
+	 // 5) Druk af hoeveel sporters er zijn die geboren zijn in 2000-2002
 	atletenServices.sportersTussen2000En2002(atletenList);
 	
 	 // 6) Druk de geboortedatum af in de Europese notatie  1 January 2002  (en niet de Amerikaanse 2002-01-01)
