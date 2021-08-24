@@ -1,4 +1,4 @@
-package com.bludots.assignments;
+package com.bludots.assignments.Collection;
 
 import java.util.ArrayList;
 import java.util.Arrays;

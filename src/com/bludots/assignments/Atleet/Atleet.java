@@ -1,4 +1,4 @@
-package com.bludots.assignments;
+package com.bludots.assignments.Atleet;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,7 +9,25 @@ import java.util.Random;
 
 public class Atleet {
 	
-	public enum Sport { BAANWIELRENNEN, ATLETIEK, ZWEMMEN, BOKSEN, ZEILEN, VOETBAL};
+	public enum Sport { 
+		BAANWIELRENNEN(true), 
+		ATLETIEK(true), 
+		ZWEMMEN(true), 
+		BOKSEN(true), 
+		ZEILEN(true), 
+		VOETBAL(false),
+		BASKETBAL(false);
+	
+		private boolean individueel;
+		
+		private Sport(boolean individueel) {
+			this.individueel = individueel;
+		}
+		
+		boolean isIndividueel() {
+			return individueel;
+		}
+	};
 	
 	private String voorNaam;
 	private String achterNaam;
@@ -78,6 +96,15 @@ public class Atleet {
 	public String toString() {
 		return "Atleet [voorNaam=" + voorNaam + ", achterNaam=" + achterNaam + ", geboorteDatum=" + geboorteDatum
 				+ ", sport=" + sport + "]";
+	}
+	
+	public void showAtleet() {
+		System.out.println("Voornaam	: " + getVoorNaam());
+		System.out.println("Achternaam	: " + getAchterNaam());
+		System.out.println("Sport		: " + getSport());
+		System.out.println("GeboorteDatum	: " + getGeboorteDatum());
+		System.out.println("Individueel : "  + getSport().isIndividueel());
+		System.out.println();
 	}
 
 	public static void main(String arg[]) {
