@@ -30,6 +30,28 @@ public class AtleetManager {
 		}
 	}
 	
+	//zoek of individueel of team sporters
+	//zoek gebaseerd op 1 voor niet individueel
+	//zoek gebaseerd op 2 voor individueel
+	public static void searchIndividualOrTeam(int j) {
+		if(j == 1) {
+			System.out.println("Team sporters");
+			for(int i = 0; i < atletenList.size(); i++) {
+				if(!atletenList.get(i).getSport().isIndividueel()) {
+					System.out.println("Name: "+atletenList.get(i).getVoorNaam()+" "+atletenList.get(i).getAchterNaam()+ " Sport: "+atletenList.get(i).getSport().toString());
+				} 
+			}
+		} else if (j == 2) {
+			System.out.println("Individuele sporters");
+			for(int i = 0; i < atletenList.size(); i++) {
+				if(atletenList.get(i).getSport().isIndividueel()) {
+					System.out.println("Name: "+atletenList.get(i).getVoorNaam()+" "+atletenList.get(i).getAchterNaam()+ " Sport: "+atletenList.get(i).getSport().toString());
+				} 
+			}			
+		}
+		
+	}
+	
 	public static void main(String arg[]) {
 		
 	Atleet atleet1 = new Atleet("Jair", "Tjon en Fa", LocalDate.of(1994, 4, 1), Sport.BAANWIELRENNEN);
@@ -60,15 +82,24 @@ public class AtleetManager {
 	 // bijv atleten moeten geboren zijn tussen 1990 - 2003
 	
 	atletenServices.sportersTussenData(atletenList, 1997, 2003);
+	//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
+	System.out.println();
+	//Het volgende is in een search mogelijk
+	//--------------------------------------------------------------------
+//	 // 2) Zoek naar alle individuele sporters
+//	atletenServices.individueleSpelers(atletenList);
+//	
+//	// 3) Druk af hoeveel teamsporters er in de lijst zitten
+//	System.out.println();
+//	atletenServices.totalTeamSportsman(atletenList);
+	
+	//EASY MANIER VAN DEZE ZOEKEN: uncomment de volgende line en kiez 1 of 2
+	searchIndividualOrTeam(2);
+	//--------------------------------------------------------------------
+	//--------------------------------------------------------------------
 
-	 // 2) Zoek naar alle individuele sporters
-	System.out.println();
-	atletenServices.individueleSpelers(atletenList);
-	
-	// 3) Druk af hoeveel teamsporters er in de lijst zitten
-	System.out.println();
-	atletenServices.totalTeamSportsman(atletenList);
-	
 	// 4) Druk af hoeveel sporters er zijn die jarig zijn in Maart
 	System.out.println();
 	atletenServices.sportmenBornInMarch(atletenList);
