@@ -1,128 +1,149 @@
 package com.bludots.assignments.Atleet;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import com.bludots.assignments.Atleet.Atleet.Sport;
 
+/* 
+ *  * Wat verwachten wij van u?
+ * - gebruik overall for loops zonder int i = 0; i<x; i++, gebruik nieuwe constructies
+ * - gebruik LocalDateTime formatter
+ * - minimaliseer het aantal regels code (geen duplicaat code)
+ * - gebruik logische functie namen
+ * - probeer in 1 functie dingen te combineren, dus als je een 
+ *  functie A en B die ongeveer hetzelfde doen, kun je dan een functie C maken
+ * - probeer logische taken te isoleren in aparte functie
+ * - probeer waar mogelijk a?b:c
+ * - probeer zoveel constanten/enumeraties te gebruiken dus
+ *   liever Month.MARCH dan 3 of liever VOLWASSSEN dan 18
+ */
 
 public class AtleetManager {
-	
+
 	public static ArrayList<Atleet> atletenList = new ArrayList<>();
-	
+
 	// zoek naar alle atleten die zwemmen en druk deze dan af
 	public static void search(Sport searchSportType) {
 		search("", searchSportType);
 	}
 
-	// zoek naar alle atleten die jair heten en zwemmen en druk deze dan af. Als firstName null is (negeer deze) 
+	// zoek naar alle atleten die jair heten en zwemmen en druk deze dan af. Als
+	// firstName null is (negeer deze)
 	public static void search(String firstName, Sport searchSportType) {
-		for (int i = 0; i < atletenList.size(); i++) {
-			Atleet atleet = atletenList.get(i);
+		for (Atleet atleet: atletenList) {
 			if (atleet.getSport().equals(searchSportType)) {
 				String voornaam = atleet.getVoorNaam();
-				if (firstName.equals("") || firstName.equals(voornaam)) {	
+				if (firstName.equals("") || firstName.equals(voornaam)) {
 					atleet.showAtleet();
 				}
 			}
 		}
 	}
-	
-	//zoek of individueel of team sporters
-	//zoek gebaseerd op 1 voor niet individueel
-	//zoek gebaseerd op 2 voor individueel
-	public static void searchIndividualOrTeam(int j) {
-		if(j == 1) {
-			System.out.println("Team sporters");
-			for(int i = 0; i < atletenList.size(); i++) {
-				if(!atletenList.get(i).getSport().isIndividueel()) {
-					System.out.println("Name: "+atletenList.get(i).getVoorNaam()+" "+atletenList.get(i).getAchterNaam()+ " Sport: "+atletenList.get(i).getSport().toString());
-				} 
+
+	// zoek of individueel of team sporters
+	// zoek gebaseerd op 1 voor niet individueel
+	// zoek gebaseerd op 2 voor individueel
+	// int leeftijd = 18;
+	// String soort = (leeftijd<18) ?"Kind:"Volwassen";
+	//String soort = (leeftijd < 18) ? "Kind": leeftijd > 60?"Senior":"volwassen";
+	public static void searchIndividualPlayerOrTeamPlayer(boolean zoekIndividueel) {
+		String title = zoekIndividueel ? "Individuele sporters" : "Teamsporters";
+		System.out.println(title);
+		for (Atleet atleet: atletenList) {
+			boolean sportIndividueel = atleet.getSport().isIndividueel();
+			if (zoekIndividueel == sportIndividueel) {
+				atleet.displayAtleetFullNameAndSport();
 			}
-		} else if (j == 2) {
-			System.out.println("Individuele sporters");
-			for(int i = 0; i < atletenList.size(); i++) {
-				if(atletenList.get(i).getSport().isIndividueel()) {
-					System.out.println("Name: "+atletenList.get(i).getVoorNaam()+" "+atletenList.get(i).getAchterNaam()+ " Sport: "+atletenList.get(i).getSport().toString());
-				} 
-			}			
 		}
-		
+
 	}
-	
-	public static void search(int month) {
-		for(int i = 0; i < atletenList.size(); i++) {
-			if(atletenList.get(i).getGeboorteDatum().getMonthValue() == month) {
-				System.out.println("Name: "+atletenList.get(i).getVoorNaam()+" "+atletenList.get(i).getAchterNaam()+ " Birthday: "+atletenList.get(i).getGeboorteDatum());
-			} 
+
+	public static void searchPlayerByMonth(Month month) {
+		for (Atleet atleet: atletenList) {
+			if (atleet.getGeboorteDatum().getMonth() == month) {
+				atleet.displayAtleetFullNameAndBirthMonth();
+			}
 		}
 	}
 	
+	
+	public String getEuroDate(LocalDate date) {
+		String s;
+		DateTimeFormatter formatter = new DateTimeFormatterBuilder().appendPattern("dd-MMMM-yyyy HH:mm")
+				.toFormatter();
+		s = formatter.format(date);
+		return s;
+	}
+
 	public static void main(String arg[]) {
-		
-	Atleet atleet1 = new Atleet("Jair", "Tjon en Fa", LocalDate.of(1994, 4, 1), Sport.BAANWIELRENNEN);
-	System.out.println("Atleet " + atleet1.getAchterNaam() + " Leeftijd: " + atleet1.getAge());
 
-	
-	//Dit voorbeeld is in een ArrayList en houdt alles variable
-	AtletenServices atletenServices = new AtletenServices();
+		Atleet atleet1 = new Atleet("Jair", "Tjon en Fa", LocalDate.of(1994, 4, 1), Sport.BAANWIELRENNEN);
+		System.out.println("Atleet " + atleet1.getAchterNaam() + " Leeftijd: " + atleet1.getAge());
 
-	// Assignment 1: Maak een lijst van 50 atleten.
-	// Vul ze steeds met andere sporten, dus bijv een aantal boksers, voetballers etc ec
-	// Maak deze ook aan met een variabel geboortejaar (tussen 1990-2005))
+		// Dit voorbeeld is in een ArrayList en houdt alles variable
+		AtletenServices atletenServices = new AtletenServices();
 
-	fillAtletenArray();
-	
+		// Assignment 1: Maak een lijst van 50 atleten.
+		// Vul ze steeds met andere sporten, dus bijv een aantal boksers, voetballers
+		// etc ec
+		// Maak deze ook aan met een variabel geboortejaar (tussen 1990-2005))
+
+		fillAtletenArray();
+
 //  - zoek naar alle atleten die zwemmen en druk deze dan af
-	atletenServices.zwemmers(atletenList);
-	
+		atletenServices.displayZwemmers(atletenList);
+
 //  - zoek naar alle atleten die jair heten en zwemmen en druk deze dan af
-	atletenServices.jairDieZwemmersZijn(atletenList) ;
-	
+		atletenServices.jairDieZwemmersZijn(atletenList);
+
 //  (*) zoek naar alle atleten die jonger zijn dan 20 jaar 
-	atletenServices.sportersOnder20(atletenList);
-	
-	System.out.println();
+		atletenServices.sportersOnder20(atletenList);
 
-	 // 1) Zorg ervoor dat de geboortedatum willekeurig is tussen 2 data 
-	 // bijv atleten moeten geboren zijn tussen 1990 - 2003
-	
-	atletenServices.sportersTussenData(atletenList, 1997, 2003);
-	//--------------------------------------------------------------------
-	//--------------------------------------------------------------------
-	//--------------------------------------------------------------------
-	System.out.println();
-	//Het volgende is in een search mogelijk
-	//--------------------------------------------------------------------
-	 // 2) Zoek naar alle individuele sporters
-	atletenServices.individueleSpelers(atletenList);
-	
-	// 3) Druk af hoeveel teamsporters er in de lijst zitten
-	System.out.println();
-	atletenServices.totalTeamSportsman(atletenList);
-	
-	//EASY MANIER VAN DEZE ZOEKEN: uncomment de volgende line en kiez 1 of 2
-//	searchIndividualOrTeam(2);
-	//--------------------------------------------------------------------
-	//--------------------------------------------------------------------
+		System.out.println();
 
-	System.out.println();
-	// 4) Druk af hoeveel sporters er zijn die jarig zijn in Maart
-	atletenServices.sportmenBornInMarch(atletenList);
-	// Het volgende line houdt in het zoeken met een vrijwillige maand
-	//uncomment for use
-	//search(1);
-	
-	System.out.println();
-	 // 5) Druk af hoeveel sporters er zijn die geboren zijn in 2000-2002
-	atletenServices.sportersTussen2000En2002(atletenList);
-	
-	 // 6) Druk de geboortedatum af in de Europese notatie  1 January 2002  (en niet de Amerikaanse 2002-01-01)
-	System.out.println();
-	atletenServices.europeseDatum(atletenList, "Jair");
-	
+		// 1) Zorg ervoor dat de geboortedatum willekeurig is tussen 2 data
+		// bijv atleten moeten geboren zijn tussen 1990 - 2003
+
+		atletenServices.sportersTussenData(atletenList, 1997, 2003);
+		// --------------------------------------------------------------------
+		// --------------------------------------------------------------------
+		// --------------------------------------------------------------------
+		System.out.println();
+		// Het volgende is in een search mogelijk
+		// --------------------------------------------------------------------
+		// 2) Zoek naar alle individuele sporters
+		atletenServices.individueleSpelers(atletenList);
+
+		// 3) Druk af hoeveel teamsporters er in de lijst zitten
+		System.out.println();
+		atletenServices.totalTeamSportsman(atletenList);
+
+		// EASY MANIER VAN DEZE ZOEKEN: uncomment de volgende line en kiez true for individual and false for not individual
+//		searchIndividualOrTeam(true);
+		// --------------------------------------------------------------------
+		// --------------------------------------------------------------------
+
+		System.out.println();
+		// 4) Druk af hoeveel sporters er zijn die jarig zijn in Maart
+		atletenServices.sportmenBornInMarch(atletenList);
+		// Het volgende line houdt in het zoeken met een vrijwillige maand
+		// uncomment for use
+		// search(1);
+
+		System.out.println();
+		// 5) Druk af hoeveel sporters er zijn die geboren zijn in 2000-2002
+		atletenServices.sportersTussen2000En2002(atletenList);
+
+		// 6) Druk de geboortedatum af in de Europese notatie 1 January 2002 (en niet de
+		// Amerikaanse 2002-01-01)
+		System.out.println();
+		atletenServices.europeseDatum(atletenList, "Jair");
+
 	}
 
 	public static void fillAtletenArray() {
@@ -137,36 +158,25 @@ public class AtleetManager {
 
 			int chooseSport = random.nextInt(Sport.values().length);
 
-			int maandArray = random.nextInt(12) + 1;	
+			int maandArray = random.nextInt(12) + 1;
 			int dagArray;
-			if(maandArray == 2) {
-				dagArray = random.nextInt(28) + 1;				
-			} else if(maandArray == 1 || 
-					maandArray == 3 ||
-					maandArray == 5 || 
-					maandArray == 7 || 
-					maandArray == 8 || 
-					maandArray == 10 || 
-					maandArray == 12){
-				dagArray = random.nextInt(31) + 1;								
+			if (maandArray == 2) {
+				dagArray = random.nextInt(28) + 1;
+			} else if (maandArray == 1 || maandArray == 3 || maandArray == 5 || maandArray == 7 || maandArray == 8
+					|| maandArray == 10 || maandArray == 12) {
+				dagArray = random.nextInt(31) + 1;
 			} else {
-				dagArray = random.nextInt(30) + 1;												
+				dagArray = random.nextInt(30) + 1;
 			}
 			int jaarArray = random.nextInt(2005 - 1990) + 1990;
 
-
-			Atleet atleet = new Atleet(voornamen[chooseVoornaam], achternamen[chooseAchternaam], 
+			Atleet atleet = new Atleet(voornamen[chooseVoornaam], achternamen[chooseAchternaam],
 					LocalDate.of(jaarArray, maandArray, dagArray), Sport.values()[chooseSport]);
 
 			atletenList.add(atleet);
 
 		}
-	
+
 	}
-	
-
-
-
-
 
 }
