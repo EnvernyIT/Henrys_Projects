@@ -8,12 +8,14 @@ import java.util.Random;
 
 public class FileApplication {
 
+	//Array List of names
 	public static ArrayList<String> names = new ArrayList<>();
 	// Creates a text file
 	public static File textFile = new File("names.txt");
 	public static File textFile1 = new File("names1.txt");
 	public static File textFile2 = new File("names2.txt");
 	static File dir = new File(".");
+	//array of directory of files
 	static String[] files = dir.list();
 	
 	public static void main(String[] args) {
@@ -52,7 +54,7 @@ public class FileApplication {
 			String name = voornamen[chooseVoornaam] + achternamen[chooseAchternaam];
 			names.add(name);
 		}
-
+		//Voeg random namen toe in de file
 		try {
 			FileWriter writer = new FileWriter(file, true);
 			for (String name : names) {
