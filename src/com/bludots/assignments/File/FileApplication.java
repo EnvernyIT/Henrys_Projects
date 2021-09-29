@@ -75,4 +75,5 @@ public class FileApplication {
 			System.out.println("File ("+file.getName()+") is smaller than a 1000 bytes, so it is not deleted");
 		}
 	}
+	
 }
